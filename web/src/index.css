@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  background-color: #ffffff;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  font-family: 'PT Sans', sans-serif;
+}
+
+body {
+  overflow: hidden;
+  user-select: none;
+
+  --error: #ff0033;
+  --warning: #ffcc00;
+  --success: #00cc66;
+  --info: #0099ff;
+}
+
+.navBtn {
+  border: 0.125rem solid greenyellow;
+}
+
+.navBtn:hover {
+  background-color: greenyellow;
+  color: black;
+  transform: scale(1.1);
+}
+
+.kbd {
+  background-color: greenyellow;
+  color: black;
+  padding: 2px 4px;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-family: 'PT Sans', sans-serif;
+  font-size: 12px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.kbd:hover {
+  background-color: white;
+  color: black;
+}
+
+@keyframes panLeftToRight {
+  0% {
+    background-position: left;
+    transform: scale(1)
+  }
+  50% {
+    background-position: right;
+    transform: scale(1.25)
+  }
+  100% {
+    background-position: left;
+    transform: scale(1)
+  }
+}
