@@ -4,7 +4,7 @@ import Controls from './controls';
 import SongInfo from './song-info';
 import VolumeController from './volumecontroller';
 import useAudioPlayer from '../audioplayer/hooks';
-import { Card, Flex, HoverCard, Image } from '@mantine/core';
+import { Card, Flex } from '@mantine/core';
 
 const savedVolume = parseInt(localStorage.getItem("volume") || "0.05");
 

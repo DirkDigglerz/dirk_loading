@@ -1,4 +1,4 @@
-import { Box, Card, Flex, Image, Stack, Text } from '@mantine/core';
+import { Card, Flex, Image, Stack, Text } from '@mantine/core';
 
 type SongInfoProps = {
   title?: string;
