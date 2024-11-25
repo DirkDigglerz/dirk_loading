@@ -5,6 +5,7 @@ import { MantineProvider } from '@mantine/core';
 import theme from '../theme';
 import { useSettings } from '../providers/settings/settings';
 import MainPage from './Main/main';
+import '@mantine/carousel/styles.css';
 
 const App: React.FC = () => {
   const [curTheme, setCurTheme] = useState(theme);

@@ -8,7 +8,7 @@ export type SettingsProps = {
   discordLink: string;
   tebexLink: string;
 
-  backgroundImage: string;
+  backgroundImages:number;
   logoImage: string;
 
   // Add more settings here

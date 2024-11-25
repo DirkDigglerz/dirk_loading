@@ -1,9 +1,16 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
+
+// Extend the Window interface to include nuiHandoverData
+declare global {
+  interface Window {
+    nuiHandoverData?: SettingsProps;
+  }
+}
+
+
+import { useNuiEvent } from '../../hooks/useNuiEvent';
 import { defaultSettings } from './default_settings';
 import { SettingsProps } from './settings_props';
-import { isEnvBrowser } from '../../utils/misc';
-import { fetchNui } from '../../utils/fetchNui';
-import { useNuiEvent } from '../../hooks/useNuiEvent';
 
 // Create a context with default values
 const SettingsContext = createContext<SettingsProps | undefined>(undefined);
@@ -12,22 +19,10 @@ const SettingsContext = createContext<SettingsProps | undefined>(undefined);
 export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<SettingsProps>(defaultSettings);
 
-  useEffect(() => {
-    if (!isEnvBrowser()) {
-      console.log('SettingsProvider: Fetching settings from Lua');
-      fetchNui('GET_SETTINGS')
-        .then((data) => {
-          // Ensure data is of type SettingsProps
-          setSettings(data as SettingsProps);
-        }) 
-        .catch((error) => {
-          console.error('Failed to fetch settings:', error);
-        });
-    } else {
-      console.warn('SettingsProvider: Not fetching settings from NUI');
-    }
-  }, []);
-
+  // useEffect(() => {
+  //   setSettings(window.nuiHandoverData ? window.nuiHandoverData : defaultSettings);
+  // }, []);
+  console.log('settings');
   useNuiEvent('UPDATE_SETTINGS', (data: SettingsProps) => {
     setSettings(data);
   });

@@ -1,65 +1,52 @@
-import React, { useState } from 'react';
-import { Flex } from '@mantine/core';
-import YouTube, { YouTubeProps } from 'react-youtube';
+import { useEffect, useState } from 'react';
 import Button from './Button';
+import BackgroundMusic from '/background.mp3';
+import getImgUrl from '../../utils/getImgUrl';
 
 export default function AudioPlayer() {
-  const youtubeUrl = 'https://www.youtube.com/watch?v=IOspC5B69L4';
-  const [player, setPlayer] = useState<any | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
+  const [muted, setMuted] = useState(false);
 
-  const videoId = youtubeUrl.split('v=')[1]?.split('&')[0]; // Extract the video ID
-
-  const handlePlayPause = () => {
-    if (!player) return;
-
-    if (isPlaying) {
-      player.pauseVideo();
-    } else {
-      player.playVideo();
+  const togglePlayState = () => {
+    setIsPlaying((prev) => !prev);
+    const audio = document.getElementById('audio') as HTMLAudioElement;
+    if (audio) {
+      if (isPlaying) {
+        audio.pause();
+      } else {
+        audio.play();
+      }
     }
+  };  
 
-    setIsPlaying(!isPlaying);
-  };
-
-  const handleMute = () => {
-    if (!player) return;
-
-    if (player.isMuted()) {
-      player.unMute();
-    } else {
-      player.mute();
+  const toggleMutestate = () => {
+    setMuted((prev) => !prev);
+    const audio = document.getElementById('audio') as HTMLAudioElement;
+    if (audio) {
+      audio.muted = !audio.muted;
     }
   };
-
-  const onReady: YouTubeProps['onReady'] = (event) => {
-    setPlayer(event.target);
-  };
+  console.log(getImgUrl('background.mp3'))
+  // ensure audio is playing with useEffect
+  useEffect(() => {
+    const audio = document.getElementById('audio') as HTMLAudioElement;
+    if (audio) {
+      console.log('audio', audio);
+      audio.play();
+    }
+  }, []); 
 
   return (
-    <Flex
-      pos="absolute"
-      bottom="1%"
-      left="1%"
-      gap="md"
-      bg="rgba(0,0,0,0.7)"
-      p="xs"
-      style={{
-        borderRadius: '0.25rem',
-      }}
-    >
-      <Button 
+    <>
+      <audio src={getImgUrl('background.mp3')} loop id="audio" autoPlay />
+      <Button
         icon={isPlaying ? 'fa-pause' : 'fa-play'}
-        onClick={handlePlayPause}
+        onClick={() => togglePlayState()}
       />
-      <Button 
-        icon="volume-xmark"
-        onClick={handleMute}
-      />
-      {/* YouTube player is rendered invisibly */}
-      <div style={{ display: 'none' }}>
-        <YouTube videoId={videoId} onReady={onReady} />
-      </div>
-    </Flex>
+      <Button
+        icon={muted ? 'volume-mute' : 'volume-up'}
+        onClick={() => toggleMutestate()}
+      />    
+    </>
   );
 }

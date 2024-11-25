@@ -6,12 +6,17 @@ games {
 }
 
 files {
-	'web/dist/index.html',
-	'web/dist/assets/*',
-	'web/dist/**/*',
+	'web/build/index.html',
+	'web/build/public/*',
+	'web/build/**/*',
+	'web/assets/*.*',
 }
 
-loadscreen 'web/dist/index.html'
+server_scripts {
+  'handover.lua',
+}
+
+loadscreen 'web/build/index.html'
 
 loadscreen_cursor 'yes'
 loadscreen_manual_shutdown 'yes'

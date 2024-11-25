@@ -18,7 +18,7 @@ export const defaultSettings: SettingsProps = {
 
   discordLink: "https://discord.gg/yourdiscord",
   tebexLink: "https://yourtebexsite.com",
-  backgroundImage: 'https://wallpapercat.com/w/full/a/8/4/2152869-3840x2160-desktop-4k-gta-v-wallpaper-image.jpg',
+  backgroundImages: 2,
   logoImage: '/logo.png',
   // Add more default settings here
 };
