@@ -1,14 +1,13 @@
 
 import { Carousel } from '@mantine/carousel';
-import { Flex, Image, Transition, useMantineTheme } from '@mantine/core';
+import { Image, Transition, useMantineTheme } from '@mantine/core';
 import Autoplay from 'embla-carousel-autoplay';
-import Fade from 'embla-carousel-fade';
 import { useRef } from 'react';
 import { useSettings } from '../../providers/settings/settings';
 import colorWithAlpha from '../../utils/colorWithAlpha';
 import getImgUrl from '../../utils/getImgUrl';
 import Buttons from './Buttons';
-
+import Fade from 'embla-carousel-fade';
 
 
 export default function MainPage() {
@@ -30,7 +29,8 @@ export default function MainPage() {
 
 function Background() {
   const settings = useSettings();
-  const autoplay = useRef(Autoplay({ delay: 10000, active: true }));
+
+  const autoplay = useRef(Autoplay({ delay: 1000, active:true }));
   const fade = useRef(Fade());
   return (
 
@@ -39,19 +39,19 @@ function Background() {
       bg={'blue'}
       // bg='red'
       
-      // align={'end'}
-      // plugins={[autoplay.current as unknown as any, fade.current as unknown as any]}
-      // withIndicators={false}
-      // withControls={false}
-  
+      align={'end'}
+      withIndicators={false}
+      withControls={false}
+      plugins={[autoplay.current, fade.current]}
+      loop
       style={{
         zIndex: -1,
 
       }}
     >
-      {Array.from({ length: 2 }).map((_, i) => (
+      {Array.from({ length: settings.backgroundImages }).map((_, i) => (
         <Carousel.Slide
-
+          
           key={i}
         >
           <Image
@@ -76,7 +76,7 @@ function Logo() {
       mounted={true}
       duration={500}
       timingFunction='ease'
-      transition='fade-up'
+      transition='fade'
     >
       {(styles) => (
         <Image 

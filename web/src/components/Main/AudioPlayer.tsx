@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import Button from './Button';
-import BackgroundMusic from '/background.mp3';
 import getImgUrl from '../../utils/getImgUrl';
+import Button from './Button';
 
 export default function AudioPlayer() {
   const [isPlaying, setIsPlaying] = useState(true);
