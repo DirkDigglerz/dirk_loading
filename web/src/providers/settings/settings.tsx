@@ -19,10 +19,10 @@ const SettingsContext = createContext<SettingsProps | undefined>(undefined);
 export const SettingsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [settings, setSettings] = useState<SettingsProps>(defaultSettings);
 
-  // useEffect(() => {
-  //   setSettings(window.nuiHandoverData ? window.nuiHandoverData : defaultSettings);
-  // }, []);
-  console.log('settings');
+  useEffect(() => {
+    setSettings(window.nuiHandoverData ? window.nuiHandoverData : defaultSettings);
+  }, []);
+  
   useNuiEvent('UPDATE_SETTINGS', (data: SettingsProps) => {
     setSettings(data);
   });

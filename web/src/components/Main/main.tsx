@@ -30,7 +30,7 @@ export default function MainPage() {
 function Background() {
   const settings = useSettings();
 
-  const autoplay = useRef(Autoplay({ delay: 1000, active:true }));
+  const autoplay = useRef(Autoplay({ delay: 10000, active:true }));
   const fade = useRef(Fade());
   return (
 

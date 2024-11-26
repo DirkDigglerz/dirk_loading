@@ -20,9 +20,7 @@ AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
   
     discordLink      = GetConvar('clean_loading:discordLink', 'https://discord.gg/'),
     tebexLink        = GetConvar('clean_loading:tebexLink', 'https://store.example.com'),
-    backgroundImages = GetConvarInt('clean_loading:backgroundImages', 5),
+    backgroundImages = GetConvarInt('clean_loading:backgroundImages', 2),
   }
-  print('Handing over to loading screen')
-
   deferrals.handover(data)
 end)
