@@ -36,7 +36,7 @@ function Background() {
 
     <Carousel
       h={'100vh'}
-      bg={'blue'}
+      bg={'black'}
       // bg='red'
       
       align={'end'}
