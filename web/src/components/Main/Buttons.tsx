@@ -1,10 +1,11 @@
-import { Flex, Transition } from "@mantine/core";
+import { Flex, Transition, useMantineTheme } from "@mantine/core";
 import Button from "./Button";
 import { useSettings } from "../../providers/settings/settings";
 import AudioPlayer from "./AudioPlayer";
 import { useEffect, useState } from "react";
 
 export default function Buttons(){
+  const theme = useMantineTheme();
   const settings = useSettings();
   const [display, setDisplay] = useState(false);
 
@@ -27,11 +28,11 @@ export default function Buttons(){
             pos='absolute'
             bottom='1%'
             left='1%'
-            gap='md'
+            gap='xs'
             bg='rgba(0,0,0,0.7)'
             p='xs'
             style={{
-              borderRadius: '0.25rem',
+              borderRadius: theme.radius.xs,
               ...styles,
             }}  
             >

@@ -69,10 +69,10 @@ export default function Button(props: ButtonProps) {
 
       style={{
         aspectRatio: '1/1',
-        borderRadius: props.radius || '0.25rem',
+        borderRadius: props.radius || theme.radius.xs,
         cursor: !props.disabled ? 'pointer' : 'not-allowed',
-        padding: props.p || '0.5rem',
-        outline: !props.disabled && hovered? `0.1rem solid ${colorWithAlpha(props.hoverColor || theme.colors[theme.primaryColor][9], 0.8)}`: "0.25rem solid transparent",
+        padding: props.p || theme.spacing.xs,
+        outline: !props.disabled && hovered? `0.2vh solid ${colorWithAlpha(props.hoverColor || theme.colors[theme.primaryColor][9], 0.8)}`: "0.2vh solid transparent",
         transition: 'all 0.1s ease-in-out',
         ...props.style,
       }}
@@ -97,8 +97,8 @@ export default function Button(props: ButtonProps) {
           style={{
             fontFamily: 'Akrobat Bold',
             color: !props.disabled && hovered ? colors.textColor.hovered : colors.textColor.normal,
-            fontSize: props.fontSize || '0.8rem',
-            marginLeft: props.icon ? '0.5rem' : '0',
+            fontSize: props.fontSize || theme.fontSizes.sm,
+            marginLeft: props.icon ? theme.spacing.xs : '0',
           }}
         >{props.text}</Text>
       )}

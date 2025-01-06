@@ -1,10 +1,21 @@
+import { Flex, useMantineTheme } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import getImgUrl from '../../utils/getImgUrl';
 import Button from './Button';
+import VerticalSlider from './VerticalSlider';
+import { useLocalStorage } from '@mantine/hooks';
 
 export default function AudioPlayer() {
+  const [volume, setLoadingVolume] = useLocalStorage<number>({
+    key: 'volume',
+    defaultValue: 1,
+  });
+
+  const theme = useMantineTheme();
   const [isPlaying, setIsPlaying] = useState(true);
   const [muted, setMuted] = useState(false);
+  
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
 
   const togglePlayState = () => {
     setIsPlaying((prev) => !prev);
@@ -12,40 +23,74 @@ export default function AudioPlayer() {
     if (audio) {
       if (isPlaying) {
         audio.pause();
+        
       } else {
         audio.play();
       }
     }
-  };  
+  };
 
-  const toggleMutestate = () => {
-    setMuted((prev) => !prev);
+
+  const handleVolumeChange = (value: number) => {
+    setLoadingVolume(value);
     const audio = document.getElementById('audio') as HTMLAudioElement;
     if (audio) {
-      audio.muted = !audio.muted;
+      audio.volume = value;
+      setLoadingVolume(value);
     }
   };
-  console.log(getImgUrl('background.mp3'))
-  // ensure audio is playing with useEffect
+
+  useEffect(() => {
+    if (volume === 0) {
+      setMuted(true);
+    } else {
+      setMuted(false);
+    }
+  } , [volume]);
+
   useEffect(() => {
     const audio = document.getElementById('audio') as HTMLAudioElement;
     if (audio) {
-      console.log('audio', audio);
+      audio.volume = volume;
       audio.play();
     }
-  }, []); 
+  }, []);
 
   return (
     <>
       <audio src={getImgUrl('background.mp3')} loop id="audio" autoPlay />
       <Button
         icon={isPlaying ? 'fa-pause' : 'fa-play'}
-        onClick={() => togglePlayState()}
+        onClick={togglePlayState}
       />
-      <Button
-        icon={muted ? 'volume-mute' : 'volume-up'}
-        onClick={() => toggleMutestate()}
-      />    
+
+      <Flex direction="column" align="center" style={{ position: 'relative' }}>
+        <Button
+          icon={muted ? 'volume-mute' : 'volume-up'}
+          onClick={() => setShowVolumeSlider((prev) => !prev)}    
+        />
+        {showVolumeSlider && (
+          <Flex
+            h='10vh'
+            p='0.6vh'
+            bg='rgba(0, 0, 0, 0.7)'
+            top='-11vh'
+            pos='absolute'
+            style={{
+              borderRadius: theme.radius.xs,
+            }}
+          >
+            <VerticalSlider
+             w='1.5vh'
+              value={volume}
+              onChange={(value) => {
+                console.log(value);
+                handleVolumeChange(value);
+              }}
+            />
+          </Flex>
+        )}
+      </Flex>
     </>
   );
 }
