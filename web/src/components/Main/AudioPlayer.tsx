@@ -41,8 +41,14 @@ export default function AudioPlayer() {
   };
 
   useEffect(() => {
+    const audio = document.getElementById('audio') as HTMLAudioElement;
+    if (audio) {
+      audio.volume = volume;
+    }
+
     if (volume === 0) {
       setMuted(true);
+      
     } else {
       setMuted(false);
     }
