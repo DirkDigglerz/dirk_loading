@@ -78,6 +78,7 @@ jobs:
           cp ./fxmanifest.lua ./temp/clean_loading/
           cp -r ./handover.lua ./temp/clean_loading
           cp -r ./README.md ./temp/clean_loading
+          cp -r ./web/assets ./temp/clean_loading/web/
           cp -r ./web/build ./temp/clean_loading/web/
           cd ./temp && zip -r ../clean_loading.zip ./clean_loading
       - name: Create Release
