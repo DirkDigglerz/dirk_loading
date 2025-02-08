@@ -43,12 +43,16 @@ export default function Buttons(){
                 icon='fa-brands fa-discord'
               
                 onClick={() =>  {
+                  // @ts-expect-error There is no such thing as invokeNative outside FiveM
                   window.invokeNative("openUrl", settings.discordLink)
                 }} 
               />
               <Button 
                 icon='store'
-                onClick={() => window.invokeNative("openUrl", settings.tebexLink)}
+                onClick={() => {
+                  // @ts-expect-error There is no such thing as invokeNative outside FiveM
+                  window.invokeNative("openUrl", settings.tebexLink)
+                }}
               />
             </Flex>
 
