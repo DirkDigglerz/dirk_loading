@@ -1,7 +1,6 @@
 
 
 AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
-  print('Player connecting: ' .. name)
   local data = {
     primaryColor = GetConvar('clean_lib:primaryColor', 'clean'),
     primaryShade = GetConvarInt('clean_lib:primaryShade', 9),

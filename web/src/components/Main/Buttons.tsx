@@ -4,6 +4,8 @@ import { useSettings } from "../../providers/settings/settings";
 import AudioPlayer from "./AudioPlayer";
 import { useEffect, useState } from "react";
 
+
+
 export default function Buttons(){
   const theme = useMantineTheme();
   const settings = useSettings();
@@ -39,11 +41,14 @@ export default function Buttons(){
               <AudioPlayer />
               <Button 
                 icon='fa-brands fa-discord'
-                onClick={() => window.open(settings.discordLink)} 
+              
+                onClick={() =>  {
+                  window.invokeNative("openUrl", settings.discordLink)
+                }} 
               />
               <Button 
                 icon='store'
-                onClick={() => window.open(settings.tebexLink)} 
+                onClick={() => window.invokeNative("openUrl", settings.tebexLink)}
               />
             </Flex>
 
