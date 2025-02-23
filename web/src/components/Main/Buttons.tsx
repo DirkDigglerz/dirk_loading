@@ -32,9 +32,9 @@ export default function Buttons(){
             left='1%'
             gap='xs'
             bg='rgba(0,0,0,0.7)'
-            p='xs'
+            p='xxs'
             style={{
-              borderRadius: theme.radius.xs,
+              borderRadius: theme.radius.xxs,
               ...styles,
             }}  
             >

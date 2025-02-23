@@ -69,10 +69,10 @@ export default function Button(props: ButtonProps) {
 
       style={{
         aspectRatio: '1/1',
-        borderRadius: props.radius || theme.radius.xs,
+        borderRadius: props.radius || theme.radius.xxs,
         cursor: !props.disabled ? 'pointer' : 'not-allowed',
         padding: props.p || theme.spacing.xs,
-        outline: !props.disabled && hovered? `0.2vh solid ${colorWithAlpha(props.hoverColor || theme.colors[theme.primaryColor][9], 0.8)}`: "0.2vh solid transparent",
+        outline: !props.disabled && hovered? `0.1vh solid ${colorWithAlpha(props.hoverColor || theme.colors[theme.primaryColor][9], 0.8)}`: "0.1vh solid transparent",
         transition: 'all 0.1s ease-in-out',
         ...props.style,
       }}
@@ -83,7 +83,7 @@ export default function Button(props: ButtonProps) {
       {props.icon && (
         <FontAwesomeIcon icon={props.icon as IconName || 'fa-play'} style={{ 
           color: hovered && !props.disabled ? colors.iconColor.hovered : colors.iconColor.normal,
-          fontSize: props.iconSize || '2vh',
+          fontSize: props.iconSize || '1.5vh',
           transition: 'all 0.1s ease-in-out',
           aspectRatio: '1/1',
         }} 

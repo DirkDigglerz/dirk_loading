@@ -86,14 +86,14 @@ function Logo() {
           top='50%'
           left='50%'
           style={{
-            filter: `drop-shadow(0 0 25px ${
+            filter: `drop-shadow(0 0 2vh ${
               colorWithAlpha(theme.colors[theme.primaryColor][9], 1) 
             })`,
             ...styles,
             transform: 'translate(-50%, -50%)',
           }}
-          w='25vh'
-          h='25vh'
+          w='15vh'
+          h='15vh'
         />
 
 
