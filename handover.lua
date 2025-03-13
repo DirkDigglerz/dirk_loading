@@ -2,9 +2,9 @@
 
 AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
   local data = {
-    primaryColor = GetConvar('clean_lib:primaryColor', 'clean'),
-    primaryShade = GetConvarInt('clean_lib:primaryShade', 9),
-    customTheme  = json.decode(GetConvar('clean_lib:customTheme', json.encode({
+    primaryColor = GetConvar('dirk_lib:primaryColor', 'dirk'),
+    primaryShade = GetConvarInt('dirk_lib:primaryShade', 9),
+    customTheme  = json.decode(GetConvar('dirk_lib:customTheme', json.encode({
       "#f8edff",
       "#e9d9f6",
       "#d0b2e8",
@@ -17,9 +17,9 @@ AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
       "#5c258b"
     }))),
   
-    discordLink      = GetConvar('clean_loading:discordLink', 'https://discord.gg/'),
-    tebexLink        = GetConvar('clean_loading:tebexLink', 'https://store.example.com'),
-    backgroundImages = GetConvarInt('clean_loading:backgroundImages', 2),
+    discordLink      = GetConvar('dirk_loading:discordLink', 'https://discord.gg/'),
+    tebexLink        = GetConvar('dirk_loading:tebexLink', 'https://store.example.com'),
+    backgroundImages = GetConvarInt('dirk_loading:backgroundImages', 2),
   }
   deferrals.handover(data)
 end)

@@ -73,14 +73,14 @@ jobs:
 
       - name: Bundle files
         run: |
-          mkdir -p ./temp/clean_loading
-          mkdir -p ./temp/clean_loading/web/
-          cp ./fxmanifest.lua ./temp/clean_loading/
-          cp -r ./handover.lua ./temp/clean_loading
-          cp -r ./README.md ./temp/clean_loading
-          cp -r ./web/assets ./temp/clean_loading/web/
-          cp -r ./web/build ./temp/clean_loading/web/
-          cd ./temp && zip -r ../clean_loading.zip ./clean_loading
+          mkdir -p ./temp/dirk_loading
+          mkdir -p ./temp/dirk_loading/web/
+          cp ./fxmanifest.lua ./temp/dirk_loading/
+          cp -r ./handover.lua ./temp/dirk_loading
+          cp -r ./README.md ./temp/dirk_loading
+          cp -r ./web/assets ./temp/dirk_loading/web/
+          cp -r ./web/build ./temp/dirk_loading/web/
+          cd ./temp && zip -r ../dirk_loading.zip ./dirk_loading
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@v1.2.1
         id: auto_release
@@ -88,7 +88,7 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }} # Use the GitHub token from the repository secrets
           title: "Built Version" # Use the version extracted from the workflow
           prerelease: false
-          files: clean_loading.zip # Specify the file to attach to the release
+          files: dirk_loading.zip # Specify the file to attach to the release
           automatic_release_tag: 'latest_production' # Tag name for the release
         env:
           CI: false

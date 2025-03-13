@@ -1,7 +1,7 @@
 import { SettingsProps } from "./settings_props";
 
 export const defaultSettings: SettingsProps = {
-  primaryColor:'clean', 
+  primaryColor:'dirk', 
   primaryShade: 9,
   customTheme: [
     "#f8edff",
