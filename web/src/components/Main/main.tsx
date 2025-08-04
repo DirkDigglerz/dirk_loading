@@ -1,24 +1,46 @@
+declare global {
+  interface Window {
+    nuiHandoverData?: SettingsProps;
+  }
+}
 
 import { Carousel } from '@mantine/carousel';
-import { Image, Transition, useMantineTheme } from '@mantine/core';
+import { Flex, Image, useMantineTheme } from '@mantine/core';
 import Autoplay from 'embla-carousel-autoplay';
-import { useRef } from 'react';
-import { useSettings } from '../../providers/settings/settings';
+import Fade from 'embla-carousel-fade';
+import { useEffect, useRef } from 'react';
+import { useNuiEvent } from '../../hooks/useNuiEvent';
+import { SettingsProps, useSettings } from '../../stores/settings';
 import colorWithAlpha from '../../utils/colorWithAlpha';
 import getImgUrl from '../../utils/getImgUrl';
+import AudioPlayer from './AudioPlayer';
 import Buttons from './Buttons';
-import Fade from 'embla-carousel-fade';
+import Changelog from './Changelogs';
+import PlayerOfTheMonth from './PlayersOfTheMonth';
 
 
 export default function MainPage() {
 
-
-  // Add the CSS keyframes
-
+  useEffect(() => {
+    useSettings.setState((state) => ({
+      ...state,
+      ...window.nuiHandoverData,
+    }));
+  }, []);
+  
+  useNuiEvent('UPDATE_SETTINGS', (data: Partial<SettingsProps>) => {
+    useSettings.setState((state) => ({
+      ...state,
+      ...data,
+    }));
+  });
 
   return (
     <>
       <Logo/>
+      <PlayerOfTheMonth/>
+      <Changelog/>
+      <AudioPlayer />
       <Buttons/>
       <Background/>
     </>
@@ -29,8 +51,9 @@ export default function MainPage() {
 
 function Background() {
   const settings = useSettings();
+  const carouselTime = useSettings((state) => state.carouselTime);
 
-  const autoplay = useRef(Autoplay({ delay: 10000, active:true }));
+  const autoplay = useRef(Autoplay({ delay: carouselTime * 1000, active:true }));
   const fade = useRef(Fade());
   return (
 
@@ -55,7 +78,7 @@ function Background() {
           key={i}
         >
           <Image
-            src={getImgUrl(`background_${i + 1}.jpg`)}
+            src={getImgUrl(`backgrounds/background_${i + 1}.jpg`)}
             alt='Background'
             w='100%'
             h='100%'
@@ -72,32 +95,48 @@ function Logo() {
   const theme = useMantineTheme();
   console.log(getImgUrl('logo.png'))
   return (
-    <Transition
-      mounted={true}
-      duration={500}
-      timingFunction='ease'
-      transition='fade'
-    >
-      {(styles) => (
-        <Image 
+
+      <Flex
+        align='center'
+        gap='sm'
+        pos='absolute'
+        top='2vh'
+        right='50%'
+        style={{
+          transform: 'translateX(50%)',
+        }}
+         
+      >
+        <Image
           src={getImgUrl('logo.png')}
           alt='Logo'
-          pos={'absolute'}
-          top='50%'
-          left='50%'
+          // w='14vh'
+          h='16vh'
+          radius='xs'
           style={{
-            filter: `drop-shadow(0 0 2vh ${
-              colorWithAlpha(theme.colors[theme.primaryColor][9], 1) 
-            })`,
-            ...styles,
-            transform: 'translate(-50%, -50%)',
+            // boxShadow: `0 4px 30px rgba(0, 0, 0, 0.1)`,
+            filter: `drop-shadow(0 0 2vh ${colorWithAlpha(theme.colors[theme.primaryColor][9], 0.5)})`,
+            // backdropFilter: 'blur(0.5vh)',
+            borderRadius: theme.radius.xxs,
           }}
-          w='15vh'
-          h='15vh'
         />
 
-
-      )}
-    </Transition>
+          {/* <Text
+            size='10.5vh'
+            style={{
+              fontFamily: 'Akrobat Bold',
+              WebkitTextStroke: `0.2vh rgba(0, 0, 0, 0.5)`,
+              textShadow: `0 0 2vh rgba(0, 0, 0, 0.5)`,
+            }}
+          >VORTEX</Text>
+          <Text
+            c={theme.colors[theme.primaryColor][9]}
+            size='10.5vh'
+            style={{
+              fontFamily: 'Akrobat Bold',
+              // gradient of the primary color
+            }}
+          >RP</Text> */}
+      </Flex>
   )
 }

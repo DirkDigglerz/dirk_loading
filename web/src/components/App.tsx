@@ -3,20 +3,22 @@ import React, { useEffect, useState } from "react";
 import "./App.css";
 import { MantineProvider } from '@mantine/core';
 import theme from '../theme';
-import { useSettings } from '../providers/settings/settings';
+import { useSettings } from '../stores/settings';
 import MainPage from './Main/main';
 import '@mantine/carousel/styles.css';
 
 const App: React.FC = () => {
   const [curTheme, setCurTheme] = useState(theme);
-  const settings = useSettings();
+  const primaryColor = useSettings((state) => state.primaryColor);
+  const primaryShade = useSettings((state) => state.primaryShade);
+  const customTheme = useSettings((state) => state.customTheme);
   // Ensure the theme is updated when the settings change
   useEffect(() => {
     const updatedTheme = {
       ...theme, // Start with the existing theme object
       colors: {
         ...theme.colors, // Copy the existing colors
-        custom: settings.customTheme
+        custom: customTheme
       },
     };
     
@@ -25,11 +27,11 @@ const App: React.FC = () => {
     // set primary color
     setCurTheme({
       ...updatedTheme,
-      primaryColor: settings.primaryColor,
-      primaryShade: settings.primaryShade,
+      primaryColor: primaryColor,
+      primaryShade: primaryShade,
     });
 
-  }, [settings]);
+  }, [primaryColor, primaryShade, customTheme]);
 
   return (
         

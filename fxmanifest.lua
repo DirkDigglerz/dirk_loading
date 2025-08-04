@@ -14,7 +14,7 @@ files {
 }
 
 server_scripts {
-  'handover.lua',
+  'src/server/*.lua',
 }
 
 loadscreen 'web/build/index.html'
