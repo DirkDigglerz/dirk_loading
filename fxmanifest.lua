@@ -11,6 +11,7 @@ files {
 	'web/build/public/*',
 	'web/build/**/*',
 	'web/assets/*.*',
+	'web/assets/**/*.*',
 }
 
 server_scripts {

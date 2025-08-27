@@ -55,10 +55,11 @@ function Background() {
 
   const autoplay = useRef(Autoplay({ delay: carouselTime * 1000, active:true }));
   const fade = useRef(Fade());
+ 
   return (
 
     <Carousel
-      h={'100vh'}
+      mih={'100vh'}
       bg={'black'}
       // bg='red'
       
@@ -72,19 +73,26 @@ function Background() {
 
       }}
     >
-      {Array.from({ length: settings.backgroundImages }).map((_, i) => (
-        <Carousel.Slide
-          
-          key={i}
-        >
-          <Image
-            src={getImgUrl(`backgrounds/background_${i + 1}.jpg`)}
-            alt='Background'
-            w='100%'
-            h='100%'
-          />
-        </Carousel.Slide>
-      ))} 
+      {Array.from({ length: settings.backgroundImages }).map((_, i) => { 
+        const imgUrl = getImgUrl(`backgrounds/background_${i + 1}.jpg`) 
+        console.log(imgUrl)
+        return (
+          <Carousel.Slide
+            h='100vh'
+            key={i}
+          >
+            <Image
+              src={imgUrl}
+              alt='Background'
+              w='100%'
+              h='100%'
+              style={{
+                objectFit: 'cover',
+              }}
+            />
+          </Carousel.Slide>
+        );
+      })} 
     </Carousel>
     )
 }

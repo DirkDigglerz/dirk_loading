@@ -15,17 +15,25 @@ AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
       "#692d9d",
       "#5c258b"
     }))),
-    carouselTime = GetConvarInt('dirk_loading:carouselTime', 5),
+    carouselTime = GetConvarInt('dirk_loading:carouselTime', 15),
   
     links      = json.decode(GetConvar('dirk_loading:links', json.encode({
       { title = 'Discord', icon = 'fab fa-discord', url = 'https://discord.gg/example' },
       { title = 'Tebex', icon = 'fas fa-shopping-cart', url = 'https://store.example.com' }
     }))),
-
     songs     = json.decode(GetConvar('dirk_loading:songs', json.encode({
-      { title = 'Song 1', artist = 'Artist 1', fileName = 'song1.mp3', coverArt = 'https://example.com/song1.jpg' },
-      { title = 'Song 2', artist = 'Artist 2', fileName = 'song2.mp3', coverArt = 'https://example.com/song2.jpg' },
-      { title = 'Song 3', artist = 'Artist 3', fileName = 'song3.mp3', coverArt = 'https://example.com/song3.jpg' }
+      {
+        title = 'Dream Machine',
+        artist = 'Mark Farina',
+        fileName = 'dreamMachine.mp3',
+        coverArt = 'https://f4.bcbits.com/img/a2995438944_10.jpg'
+      },
+      {
+        title = 'Real Love Baby',
+        artist = 'Father John Misty',
+        fileName = 'realLove.mp3',
+        coverArt = 'https://upload.wikimedia.org/wikipedia/en/f/f1/Father_John_Misty_-_Real_Love_Baby.jpg'
+      }
     }))),
 
     changelogs = json.decode(GetConvar('dirk_loading:changelogs', json.encode({
@@ -35,21 +43,21 @@ AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
         entries = {
           {
             type = 'addition',
-            text = 'Initial release with basic features.'
+            content = 'Initial release with basic features.'
           },
           {
             type = 'change',
-            text = 'Improved loading times and UI responsiveness.'
+            content = 'Improved loading times and UI responsiveness.'
           },
           {
             type = 'fix',
-            text = 'Fixed minor bugs in the audio player.'
+            content = 'Fixed minor bugs in the audio player.'
           }
         }
       },
     }))),
   
-    backgroundImages = GetConvarInt('dirk_loading:backgroundImages', 2),
+    backgroundImages = GetConvarInt('dirk_loading:backgroundImages', 6),
 
     playersOfTheMonth = {},
   }

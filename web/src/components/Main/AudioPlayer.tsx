@@ -10,11 +10,6 @@ import Slider from './Slider';
 import { AnimatePresence, motion } from 'framer-motion';
 import colorWithAlpha from '../../utils/colorWithAlpha';
 
-
-
-
-
-
 export default function AudioPlayer() {
   const songs = useSettings((state) => state.songs);
   const [premuteVolume, setPremuteVolume] = useLocalStorage<number>({
@@ -29,7 +24,7 @@ export default function AudioPlayer() {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
 
   const theme = useMantineTheme();
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true); // Changed to true for autoplay
   const [muted, setMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -44,7 +39,7 @@ export default function AudioPlayer() {
       if (isPlaying) {
         audio.pause();
       } else {
-        audio.play();
+        audio.play().catch(console.error); // Added error handling
       }
     }
   };
@@ -128,7 +123,7 @@ export default function AudioPlayer() {
     const audio = document.getElementById('audio') as HTMLAudioElement;
     if (audio && currentTrack) {
       // Update the audio source when track changes
-      audio.src = getImgUrl(`music/${currentTrack.filename}`);
+      audio.src = getImgUrl(`music/${currentTrack.fileName}`);
       const testAudio = new Audio(audio.src);
       testAudio.addEventListener('error', () => {
         console.error('Audio file failed to load:', audio.src);
@@ -138,15 +133,54 @@ export default function AudioPlayer() {
       });
       audio.load();
    
+      // Force autoplay when track changes
       if (isPlaying) {
-        audio.play().catch(console.error);
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+          playPromise.catch((error) => {
+            console.warn('Autoplay was prevented:', error);
+            // If autoplay fails, try to enable it on next user interaction
+            const enableAutoplay = () => {
+              audio.play().catch(console.error);
+              document.removeEventListener('click', enableAutoplay);
+              document.removeEventListener('keydown', enableAutoplay);
+            };
+            document.addEventListener('click', enableAutoplay);
+            document.addEventListener('keydown', enableAutoplay);
+          });
+        }
       }
     }
   }, [currentTrackIndex, currentTrack, isPlaying]);
 
+  // Force autoplay on component mount
+  useEffect(() => {
+    if (songs.length > 0 && currentTrack) {
+      const audio = document.getElementById('audio') as HTMLAudioElement;
+      if (audio) {
+        const attemptAutoplay = () => {
+          audio.play().catch((error) => {
+            console.warn('Initial autoplay was prevented:', error);
+            // Try again on first user interaction
+            const enableAutoplay = () => {
+              audio.play().catch(console.error);
+              document.removeEventListener('click', enableAutoplay);
+              document.removeEventListener('keydown', enableAutoplay);
+            };
+            document.addEventListener('click', enableAutoplay);
+            document.addEventListener('keydown', enableAutoplay);
+          });
+        };
+        
+        // Small delay to ensure audio element is ready
+        setTimeout(attemptAutoplay, 100);
+      }
+    }
+  }, [songs, currentTrack]);
+
   const progressPercentage = duration > 0 ? (currentTime / duration) * 100 : 0;
 
-  //  listen for sapce bar to mute / revert to premute volume
+  //  listen for space bar to mute / revert to premute volume
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.code === 'Space') {
@@ -170,8 +204,9 @@ export default function AudioPlayer() {
   return (
     <>
       <audio 
-        src={currentTrack ? getImgUrl(`music/${currentTrack.filename}`) : ''} 
+        src={currentTrack ? getImgUrl(`music/${currentTrack.fileName}`) : ''} 
         loop={false}
+        autoPlay={true} // Added autoPlay attribute
         id="audio" 
       />
       <SlideSection
@@ -315,7 +350,6 @@ function MediaControlIcon(props: { icon: string, onClick: () => void }) {
     </Flex>
   )
 }
-
 
 export function VolumeMuteButton(props: {
   value: boolean;

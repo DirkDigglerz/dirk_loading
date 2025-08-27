@@ -21,7 +21,7 @@ export type ChangelogEntryProps = {
 export type Track = {
   title: string;
   artist: string;
-  filename: string;
+  fileName: string;
   coverArt?: string;
 }
 
@@ -288,15 +288,14 @@ export const useSettings = create<SettingsProps>(() => ({
     {
       title: 'Dream Machine',
       artist: 'Mark Farina',
-      filename: 'dreamMachine.mp3',
+      fileName: 'dreamMachine.mp3',
       coverArt: 'https://f4.bcbits.com/img/a2995438944_10.jpg'
     },
     {
       title: 'Real Love Baby',
       artist: 'Father John Misty',
-      filename: 'realLove.mp3',
+      fileName: 'realLove.mp3',
       coverArt: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Father_John_Misty_-_Real_Love_Baby.jpg'
     },
   ],
-
 }));
