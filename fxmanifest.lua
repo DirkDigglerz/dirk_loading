@@ -1,4 +1,4 @@
-version      '1.0.9'
+version      '1.0.10'
 fx_version "cerulean"
 lua54 'yes'
 games {
