@@ -71,6 +71,7 @@ jobs:
           cp ./fxmanifest.lua ./README.md ./temp/dirk_loading
           cp -r ./src ./temp/dirk_loading
           cp -r ./web/build ./temp/dirk_loading/web/
+          cp -r ./web/assets ./temp/dirk_loading/web/
           cd ./temp && zip -r ../dirk_loading.zip ./dirk_loading
 
       - name: Create Release
