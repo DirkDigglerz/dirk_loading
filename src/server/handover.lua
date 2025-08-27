@@ -51,7 +51,7 @@ AddEventHandler('playerConnecting', function(name, _setKickReason, deferrals)
   
     backgroundImages = GetConvarInt('dirk_loading:backgroundImages', 2),
 
-    playersOfTheMonth = getPlayersOfTheMonth(),
+    playersOfTheMonth = {},
   }
   deferrals.handover(data)
 end)
